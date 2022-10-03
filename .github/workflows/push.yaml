@@ -74,8 +74,7 @@ jobs:
         CONTAINER_TAG: ${{needs.build-and-publish.outputs.container-tag}}
       run: |
         kustomize edit set image sample-app=${CONTAINER_REPO}:${CONTAINER_TAG}
-      with:
-        working-dir: "${{ env.APP_NAME }}/overlays/${{ github.ref_name }}"
+      working-directory: "${{ env.APP_NAME }}/overlays/${{ github.ref_name }}"
 
     - name: Git Push
       run: |
