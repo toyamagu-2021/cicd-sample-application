@@ -80,5 +80,5 @@ jobs:
     - name: Git Push
       run: |
         git add .
-        git commit -m "Commit hash: ${{ git.hash }}"
+        git commit -m "Commit hash: ${{ git.sha }}"
         git push
