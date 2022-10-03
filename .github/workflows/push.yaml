@@ -62,7 +62,7 @@ jobs:
       id: set-target-branch
       run: |
         TARGET_BRANCH=$([ "${{ github.ref_name }}" == "main" ] && echo "main" || echo "dev")
-        echo $TARGET_BRANCH
+        echo "Target branch is $TARGET_BRANCH"
         echo "::set-output target-branch=${TARGET_BRANCH}"
 
     - name: Checkout
