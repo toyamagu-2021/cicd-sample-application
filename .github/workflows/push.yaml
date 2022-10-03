@@ -18,8 +18,8 @@ jobs:
       id-token: write
       contents: read
     outputs:
-      container-repo: ${{ steps.build-and-publish.build-image.outputs.container-repo }}
-      container-tag: ${{ steps.build-and-publish.build-image.outputs.container-tag }}
+      container-repo: ${{ steps.build-image.outputs.container-repo }}
+      container-tag: ${{ steps.build-image.outputs.container-tag }}
 
     steps:
     - name: Checkout
