@@ -4,3 +4,5 @@ github_oidc_repos = [{
 }]
 
 ecr_repo_name = "toyamagu-cicd-sample"
+
+create_oidc_provider_github = true

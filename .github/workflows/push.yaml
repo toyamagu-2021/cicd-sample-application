@@ -9,7 +9,7 @@ env:
   K8s_MANIFEST_REPO: toyamagu-2021/cicd-sample-k8s-manifest
   APP_NAME: sample-app
   AWS_REGION: ap-northeast-1
-  IAM_ROLE_ARN: arn:aws:iam::340084826803:role/githubactions-oidc-role
+  IAM_ROLE_ARN: arn:aws:iam::202957155516:policy/cicd-sample-application
 
 jobs:
   build-and-publish:
