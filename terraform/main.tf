@@ -38,7 +38,8 @@ data "aws_iam_policy_document" "github_actions" {
       "ecr:GetDownloadUrlForLayer",
       "ecr:InitiateLayerUpload",
       "ecr:PutImage",
-      "ecr:UploadLayerPart"
+      "ecr:UploadLayerPart",
+      "ecr:GetAuthorizationToken"
     ]
     resources = ["*"]
   }
