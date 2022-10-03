@@ -59,14 +59,17 @@ jobs:
 
     steps:
     - name: Set target branch
+      id: set-target-branch
       run: |
-        echo "TARGET_BRANCH=$([ ${{ github.ref_name }} == "main" ] && "main" || "dev")" >> $GITHUB_ENV
+        TARGET_BRANCH=$([ ${{ github.ref_name }} == "main" ] && "main" || "dev")
+        echo $TARGET_BRANCH
+        echo "::set-output target-branch=${TARGET_BRANCH}"
 
     - name: Checkout
       uses: actions/checkout@v3
       with: 
         repository: ${{ env.K8s_MANIFEST_REPO }}
-        ref: ${TARGET_BRANCH}
+        ref: ${{ steps.set-target-branch.outputs.target-branch }} 
         ssh-key: ${{ secrets.CICD_DEPLOY_KEY }}
 
 
