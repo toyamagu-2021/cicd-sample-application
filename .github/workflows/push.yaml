@@ -69,7 +69,7 @@ jobs:
       uses: actions/checkout@v3
       with: 
         repository: ${{ env.K8s_MANIFEST_REPO }}
-        ref: ${{ steps.set-target-branch.outputs.target-branch }} 
+        ref: "dev"
         ssh-key: ${{ secrets.CICD_DEPLOY_KEY }}
 
 
