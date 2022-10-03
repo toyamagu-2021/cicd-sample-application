@@ -9,6 +9,7 @@ env:
   K8s_MANIFEST_REPO: toyamagu-2021/cicd-sample-k8s-manifest
   APP_NAME: sample-app
   AWS_REGION: ap-northeast-1
+  IAM_ROLE_ARN: arn:aws:iam::340084826803:role/githubactions-oidc-role
 
 jobs:
   build-and-publish:
@@ -18,7 +19,6 @@ jobs:
       id-token: write
       contents: read
     outputs:
-      container-repo: ${{ steps.build-image.outputs.container-repo }}
       container-tag: ${{ steps.build-image.outputs.container-tag }}
 
     steps:
@@ -30,7 +30,7 @@ jobs:
       with:
         # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        role-to-assume: arn:aws:iam::340084826803:role/githubactions-oidc-role
+        role-to-assume: ${{ env.IAM_ROLE_ARN }}
         aws-region: ${{ env.AWS_REGION }}
         
     - name: Login to Amazon ECR
@@ -84,13 +84,11 @@ jobs:
         ref: "${{ steps.set-target-branch.outputs.target-branch }}"
         ssh-key: ${{ secrets.CICD_DEPLOY_KEY }}
 
-
     - name: Update K8s manifest
       env:
-        CONTAINER_REPO: ${{needs.build-and-publish.outputs.container-repo}} 
         CONTAINER_TAG: ${{needs.build-and-publish.outputs.container-tag}}
       run: |
-        kustomize edit set image sample-app=${CONTAINER_REPO}:${CONTAINER_TAG}
+        kustomize edit set image sample-app="*:${CONTAINER_TAG}"
       working-directory: "${{ env.APP_NAME }}/overlays/${{ github.ref_name }}"
 
     - name: Git Push
