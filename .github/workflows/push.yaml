@@ -28,6 +28,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
+        # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         role-to-assume: arn:aws:iam::340084826803:role/githubactions-oidc-role
         aws-region: ${{ env.AWS_REGION }}
         
@@ -50,8 +52,8 @@ jobs:
         echo "::set-output name=container-tag::${CONATIENR_TAG}"
     - name: test
       run: |
-        echo "${{ steps.build-and-publish.build-image.outputs.container-repo }}"
-        echo "${{ steps.build-and-publish.build-image.outputs.container-tag }}"
+        echo "${{ steps.build-image.outputs.container-repo }}"
+        echo "${{ steps.build-image.outputs.container-tag }}"
 
 
     
