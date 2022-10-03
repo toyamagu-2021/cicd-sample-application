@@ -49,8 +49,8 @@ jobs:
         CONTAINER_NAME=${CONTAINER_REPO}:${CONTAINER_TAG}
         docker build -t ${CONTAINER_NAME} .
         docker push ${CONTAINER_NAME}
-        echo "::set-output container-repo=${CONATIENR_REPO}"
-        echo "::set-output container-tag=${CONATIENR_TAG}"
+        echo "::set-output name=container-repo::${CONATIENR_REPO}"
+        echo "::set-output name=container-tag::${CONATIENR_TAG}"
 
   update-k8s-manifest:
     name: Update k8s manifest
@@ -69,7 +69,7 @@ jobs:
       run: |
         TARGET_BRANCH=$([ "${{ github.ref_name }}" == "main" ] && echo "main" || echo "dev")
         echo "Target branch is $TARGET_BRANCH"
-        echo "::set-output target-branch=${TARGET_BRANCH}"
+        echo "::set-output name=target-branch::${TARGET_BRANCH}"
 
     - name: Checkout
       uses: actions/checkout@v3
