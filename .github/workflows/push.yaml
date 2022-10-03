@@ -48,8 +48,8 @@ jobs:
         CONTAINER_NAME=${CONTAINER_REPO}:${CONTAINER_TAG}
         docker build -t ${CONTAINER_NAME} .
         docker push ${CONTAINER_NAME}
-        echo "::set-output name=container-repo::${CONATINER_REPO}"
-        echo "::set-output name=container-tag::${CONATINER_TAG}"
+        echo "::set-output name=container-repo::${CONTAINER_REPO}"
+        echo "::set-output name=container-tag::${CONTAINER_TAG}"
     - name: test
       run: |
         echo "${{ steps.build-image.outputs.container-repo }}"
